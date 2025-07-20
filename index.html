@@ -45,87 +45,43 @@
 <body>
   <header class="text-center py-10">
     <h1 class="text-5xl font-bold color-shift">VIP Dev Tools</h1>
-    <p class="text-lg mt-3 opacity-80">تسجيل الدخول لعرض الأدوات الخاصة</p>
+    <p class="text-lg mt-3 opacity-80">أنشئ حسابك للوصول إلى الأدوات</p>
   </header>
 
-  <main class="max-w-6xl mx-auto px-4">
-    <section id="login" class="blur-card p-6 rounded-xl text-center mb-10 max-w-md mx-auto">
-      <h2 class="text-2xl font-bold mb-4">تسجيل الدخول</h2>
-      <input type="text" id="username" placeholder="اسم المستخدم" class="p-3 rounded mb-3 w-full">
-      <input type="password" id="password" placeholder="كلمة المرور" class="p-3 rounded mb-3 w-full">
-      <button onclick="login()" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 text-white py-2 px-6 rounded-full">دخول</button>
-      <p id="login-error" class="text-red-300 text-sm mt-3 hidden">بيانات الدخول غير صحيحة</p>
-    </section>
+  <main class="max-w-md mx-auto px-4">
+    <section id="register" class="blur-card p-6 rounded-xl text-center mb-10">
+      <h2 class="text-2xl font-bold mb-4">إنشاء حساب</h2>
 
-    <section id="tools-section" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 hidden">
-      <!-- الأدوات تظهر بعد الدخول -->
-    </section>
+      <div class="space-y-4">
+        <div class="flex items-center bg-gray-800 rounded-lg p-3">
+          <span class="text-white w-10"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.21 0 4.29.534 6.121 1.477M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg></span>
+          <input type="text" placeholder="First name" class="bg-transparent outline-none w-full text-white pl-3">
+        </div>
+        <div class="flex items-center bg-gray-800 rounded-lg p-3">
+          <span class="text-white w-10"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.21 0 4.29.534 6.121 1.477M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg></span>
+          <input type="text" placeholder="Last name" class="bg-transparent outline-none w-full text-white pl-3">
+        </div>
+        <div class="flex items-center bg-gray-800 rounded-lg p-3">
+          <span class="text-white w-10"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m0 14v1m8-8h1M4 12H3m15.364-6.364l.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707" /></svg></span>
+          <input type="text" placeholder="Username" class="bg-transparent outline-none w-full text-white pl-3">
+        </div>
+        <div class="flex items-center bg-gray-800 rounded-lg p-3">
+          <span class="text-white w-10"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h2a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4 8h4m-4 4h4m-4 4h4M4 6h16M4 10h16M4 14h16M4 18h16" /></svg></span>
+          <input type="email" placeholder="Email" class="bg-transparent outline-none w-full text-white pl-3">
+        </div>
+        <div class="flex items-center bg-gray-800 rounded-lg p-3">
+          <span class="text-white w-10"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0-1.105-.895-2-2-2s-2 .895-2 2 .895 2 2 2 2-.895 2-2zm-2 6v2m4-6v6" /></svg></span>
+          <input type="password" placeholder="Password" class="bg-transparent outline-none w-full text-white pl-3">
+        </div>
+      </div>
 
-    <section id="admin-panel" class="blur-card p-6 rounded-xl mt-10 max-w-xl mx-auto hidden">
-      <h2 class="text-2xl font-bold mb-5">إضافة أداة جديدة</h2>
-      <input type="text" id="tool-name" placeholder="اسم الأداة" class="p-3 rounded mb-3 w-full">
-      <input type="text" id="tool-desc" placeholder="وصف الأداة" class="p-3 rounded mb-3 w-full">
-      <input type="text" id="tool-link" placeholder="رابط التحميل" class="p-3 rounded mb-3 w-full">
-      <button onclick="addTool()" class="bg-gradient-to-r from-green-500 to-teal-500 hover:from-teal-500 hover:to-green-500 text-white py-2 px-6 rounded-full">إضافة الأداة</button>
+      <button class="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 text-white py-2 rounded-full">Sign Up</button>
+      <p class="text-sm mt-4 text-blue-400 cursor-pointer hover:underline">Forgotten password?</p>
     </section>
-
-    <div id="logout-section" class="text-center hidden mt-10">
-      <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-full">تسجيل الخروج</button>
-    </div>
   </main>
 
   <footer class="text-center text-sm mt-12 mb-6 opacity-60">
     &copy; 2025 VIP Dev Tools — جميع الحقوق محفوظة
   </footer>
-
-  <script>
-    let tools = JSON.parse(localStorage.getItem("vipTools")) || [
-      { name: "VIP Cleaner", desc: "Advanced cleaning tool with system repair", link: "https://example.com/download-vip-cleaner" },
-      { name: "IP Switcher", desc: "Switch your IP automatically with one click", link: "https://example.com/ip-switcher" },
-      { name: "RAM Booster", desc: "Boost your device performance instantly", link: "https://example.com/ram-booster" }
-    ];
-
-    function saveTools() {
-      localStorage.setItem("vipTools", JSON.stringify(tools));
-    }
-
-    function renderTools() {
-      const section = document.getElementById("tools-section");
-      section.innerHTML = "";
-      tools.forEach(tool => {
-        const card = document.createElement("div");
-        card.className = "card blur-card p-5 rounded-xl shadow-md";
-        card.innerHTML = `
-          <h2 class="text-xl font-semibold mb-2">${tool.name}</h2>
-          <p class="text-sm mb-4">${tool.desc}</p>
-          <a href="${tool.link}" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded-full">تحميل</a>
-        `;
-        section.appendChild(card);
-      });
-    }
-
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-      const error = document.getElementById("login-error");
-
-      if ((user === "admin" && pass === "01144a") || (user === "vip" && pass === "12345")) {
-        document.getElementById("admin-panel").classList.toggle("hidden", !(user === "admin"));
-        document.getElementById("tools-section").classList.remove("hidden");
-        document.getElementById("logout-section").classList.remove("hidden");
-        document.getElementById("login").classList.add("hidden");
-        renderTools();
-      } else {
-        error.classList.remove("hidden");
-      }
-    }
-
-    function logout() {
-      document.getElementById("admin-panel").classList.add("hidden");
-      document.getElementById("tools-section").classList.add("hidden");
-      document.getElementById("logout-section").classList.add("hidden");
-      document.getElementById("login").classList.remove("hidden");
-    }
-  </script>
 </body>
 </html>
