@@ -1,156 +1,66 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VIP Dev Tools</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background: #0e0e15;
-      color: white;
-      font-family: 'Cairo', sans-serif;
-      min-height: 100vh;
-    }
-    .color-shift {
-      background: linear-gradient(90deg, #00c6ff, #0072ff, #00c6ff);
-      background-size: 300% 300%;
-      animation: shift 8s ease infinite;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    @keyframes shift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    }
-    input, button {
-      color: black;
-    }
-    .blur-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    a {
-      color: #60a5fa;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
+// Firebase imports
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
-  <!-- ✅ شريط التنقل -->
-  <nav class="flex justify-between items-center px-6 py-4 bg-black bg-opacity-40 backdrop-blur-sm border-b border-gray-700">
-    <h1 class="text-2xl font-bold color-shift">VIP Dev Tools</h1>
-    <div class="space-x-3 space-x-reverse">
-      <a id="nav-login" class="bg-white text-black px-4 py-2 rounded-full font-bold hover:bg-gray-200">تسجيل الدخول</a>
-    </div>
-  </nav>
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyDpNEMzRnnSv18gY0uFVuBw324bpf4qYhA",
+  authDomain: "vip-dev-tools.firebaseapp.com",
+  projectId: "vip-dev-tools",
+  storageBucket: "vip-dev-tools.firebasestorage.app",
+  messagingSenderId: "514319559404",
+  appId: "1:514319559404:web:def10d74bba1c432fc53c9",
+  measurementId: "G-W2TFZDDYYB"
+};
 
-  <!-- ✅ رأس الصفحة -->
-  <header class="text-center py-10">
-    <h2 class="text-5xl font-bold color-shift">VIP Dev Tools</h2>
-    <p class="text-lg mt-3 opacity-80">سجّل دخولك للوصول إلى الأدوات</p>
-  </header>
+// Init Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-  <!-- ✅ النماذج -->
-  <main class="max-w-md mx-auto px-4">
-    <!-- ✅ نموذج تسجيل الدخول -->
-    <section id="login" class="blur-card p-6 rounded-xl text-center mb-10">
-      <h2 class="text-2xl font-bold mb-4">تسجيل الدخول</h2>
+// ----------------------------
+// 🔐 تسجيل دخول
+document.getElementById("login-btn").addEventListener("click", () => {
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
 
-      <div class="space-y-4">
-        <div class="flex items-center bg-gray-800 rounded-lg p-3">
-          <input type="text" placeholder="اسم المستخدم" class="bg-transparent outline-none w-full text-white pl-3" />
-        </div>
-        <div class="flex items-center bg-gray-800 rounded-lg p-3">
-          <input type="password" placeholder="كلمة المرور" class="bg-transparent outline-none w-full text-white pl-3" />
-        </div>
-      </div>
-
-      <button id="sign-in-btn" class="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 text-white py-2 rounded-full text-lg font-bold">Sign In</button>
-
-      <div class="flex justify-between items-center mt-4 text-sm">
-        <a id="to-register" class="hover:underline">إنشاء حساب</a>
-        <a id="forgot-password" class="hover:underline">هل نسيت كلمة المرور؟</a>
-      </div>
-    </section>
-
-    <!-- ✅ نموذج التسجيل -->
-    <section id="register" class="blur-card p-6 rounded-xl text-center mb-10 hidden">
-      <h2 class="text-2xl font-bold mb-4">إنشاء حساب</h2>
-
-      <div class="space-y-4">
-        <div class="flex items-center bg-gray-800 rounded-lg p-3">
-          <input type="text" placeholder="الاسم الأول" class="bg-transparent outline-none w-full text-white pl-3" />
-        </div>
-        <div class="flex items-center bg-gray-800 rounded-lg p-3">
-          <input type="text" placeholder="اسم العائلة" class="bg-transparent outline-none w-full text-white pl-3" />
-        </div>
-        <div class="flex items-center bg-gray-800 rounded-lg p-3">
-          <input type="text" placeholder="اسم المستخدم" class="bg-transparent outline-none w-full text-white pl-3" />
-        </div>
-        <div class="flex items-center bg-gray-800 rounded-lg p-3">
-          <input type="email" placeholder="البريد الإلكتروني" class="bg-transparent outline-none w-full text-white pl-3" />
-        </div>
-        <div class="flex items-center bg-gray-800 rounded-lg p-3">
-          <input type="password" placeholder="كلمة المرور" class="bg-transparent outline-none w-full text-white pl-3" />
-        </div>
-      </div>
-
-      <button id="sign-up-btn" class="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 text-white py-2 rounded-full text-lg font-bold">Sign Up</button>
-
-      <div class="flex justify-between items-center mt-4 text-sm">
-        <a id="to-login" class="hover:underline">هل لديك حساب؟ تسجيل الدخول</a>
-        <a id="forgot-password2" class="hover:underline">هل نسيت كلمة المرور؟</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="text-center text-sm mt-12 mb-6 opacity-60">
-    &copy; 2025 VIP Dev Tools — جميع الحقوق محفوظة
-  </footer>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const loginSection = document.getElementById("login");
-      const registerSection = document.getElementById("register");
-
-      function showLogin() {
-        loginSection.classList.remove("hidden");
-        registerSection.classList.add("hidden");
-      }
-
-      function showRegister() {
-        registerSection.classList.remove("hidden");
-        loginSection.classList.add("hidden");
-      }
-
-      document.getElementById("nav-login").addEventListener("click", showLogin);
-      document.getElementById("to-register").addEventListener("click", showRegister);
-      document.getElementById("to-login").addEventListener("click", showLogin);
-
-      // تفعيل الأزرار
-      document.getElementById("sign-in-btn").addEventListener("click", function () {
-        alert("✅ تم تسجيل الدخول بنجاح (اختباري)");
-      });
-
-      document.getElementById("sign-up-btn").addEventListener("click", function () {
-        alert("✅ تم إنشاء الحساب بنجاح (اختباري)");
-      });
-
-      // فتح صفحة تسجيل الدخول دائمًا عند التحميل
-      showLogin();
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      alert("✅ تم تسجيل الدخول بنجاح");
+      // هنا تقدر توجه المستخدم للوحة التحكم
+      window.location.href = "/dashboard"; // غير المسار حسب مشروعك
+    })
+    .catch((error) => {
+      alert("❌ خطأ في تسجيل الدخول: " + error.message);
     });
-  </script>
-</body>
-</html>
+});
+
+// ----------------------------
+// 🆕 إنشاء حساب جديد
+document.getElementById("signup-btn").addEventListener("click", () => {
+  const email = document.getElementById("signup-email").value;
+  const password = document.getElementById("signup-password").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      alert("✅ تم إنشاء الحساب بنجاح");
+    })
+    .catch((error) => {
+      alert("❌ خطأ أثناء إنشاء الحساب: " + error.message);
+    });
+});
+
+// ----------------------------
+// ❓ نسيت كلمة المرور
+document.getElementById("reset-password-btn").addEventListener("click", () => {
+  const email = prompt("📧 أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور:");
+
+  if (email) {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("📨 تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك.");
+      })
+      .catch((error) => {
+        alert("❌ لم يتم إرسال الرابط: " + error.message);
+      });
+  }
+});
