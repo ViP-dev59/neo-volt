@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(to right, #1e1e2f, #15151e);
+      background: #0e0e15;
       color: white;
       font-family: 'Cairo', sans-serif;
       min-height: 100vh;
@@ -25,9 +25,6 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    input, button {
-      color: black;
-    }
     .card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -35,16 +32,24 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
+    input, button {
+      color: black;
+    }
+    .blur-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
   </style>
 </head>
 <body>
   <header class="text-center py-10">
     <h1 class="text-5xl font-bold color-shift">VIP Dev Tools</h1>
-    <p class="text-lg mt-3 opacity-80">لوحة أدوات احترافية — دخول VIP فقط</p>
+    <p class="text-lg mt-3 opacity-80">تسجيل الدخول لعرض الأدوات الخاصة</p>
   </header>
 
   <main class="max-w-6xl mx-auto px-4">
-    <section id="login" class="bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-xl text-center mb-10 max-w-md mx-auto">
+    <section id="login" class="blur-card p-6 rounded-xl text-center mb-10 max-w-md mx-auto">
       <h2 class="text-2xl font-bold mb-4">تسجيل الدخول</h2>
       <input type="text" id="username" placeholder="اسم المستخدم" class="p-3 rounded mb-3 w-full">
       <input type="password" id="password" placeholder="كلمة المرور" class="p-3 rounded mb-3 w-full">
@@ -53,10 +58,10 @@
     </section>
 
     <section id="tools-section" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 hidden">
-      <!-- الأدوات ستُضاف هنا -->
+      <!-- الأدوات تظهر بعد الدخول -->
     </section>
 
-    <section id="admin-panel" class="bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-xl mt-10 max-w-xl mx-auto hidden">
+    <section id="admin-panel" class="blur-card p-6 rounded-xl mt-10 max-w-xl mx-auto hidden">
       <h2 class="text-2xl font-bold mb-5">إضافة أداة جديدة</h2>
       <input type="text" id="tool-name" placeholder="اسم الأداة" class="p-3 rounded mb-3 w-full">
       <input type="text" id="tool-desc" placeholder="وصف الأداة" class="p-3 rounded mb-3 w-full">
@@ -89,7 +94,7 @@
       section.innerHTML = "";
       tools.forEach(tool => {
         const card = document.createElement("div");
-        card.className = "card bg-white bg-opacity-10 backdrop-blur-md p-5 rounded-xl shadow-md";
+        card.className = "card blur-card p-5 rounded-xl shadow-md";
         card.innerHTML = `
           <h2 class="text-xl font-semibold mb-2">${tool.name}</h2>
           <p class="text-sm mb-4">${tool.desc}</p>
@@ -104,8 +109,8 @@
       const pass = document.getElementById("password").value;
       const error = document.getElementById("login-error");
 
-      if (user === "admin" && pass === "01144a") {
-        document.getElementById("admin-panel").classList.remove("hidden");
+      if ((user === "admin" && pass === "01144a") || (user === "vip" && pass === "12345")) {
+        document.getElementById("admin-panel").classList.toggle("hidden", !(user === "admin"));
         document.getElementById("tools-section").classList.remove("hidden");
         document.getElementById("logout-section").classList.remove("hidden");
         document.getElementById("login").classList.add("hidden");
