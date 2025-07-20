@@ -5,16 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VIP Dev Tools</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      background: linear-gradient(to right, #1e1e2f, #15151e);
       color: white;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Cairo', sans-serif;
+      min-height: 100vh;
     }
     .color-shift {
-      background: linear-gradient(90deg, #ff6ec4, #7873f5, #4ade80, #60a5fa);
-      background-size: 400% 400%;
-      animation: shift 10s ease infinite;
+      background: linear-gradient(90deg, #00c6ff, #0072ff, #00c6ff);
+      background-size: 300% 300%;
+      animation: shift 8s ease infinite;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -26,57 +28,68 @@
     input, button {
       color: black;
     }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
-  <header class="text-center py-8">
-    <h1 class="text-4xl font-bold color-shift">VIP Dev Tools</h1>
-    <p class="text-lg mt-2">لوحة أدوات احترافية | أدواتك التقنية في مكان واحد</p>
+  <header class="text-center py-10">
+    <h1 class="text-5xl font-bold color-shift">VIP Dev Tools</h1>
+    <p class="text-lg mt-3 opacity-80">لوحة أدوات تقنية أنيقة — احترافية وعصرية</p>
   </header>
 
-  <main class="max-w-4xl mx-auto px-4">
-    <section id="login" class="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl text-center mb-6">
-      <h2 class="text-xl font-bold mb-2">تسجيل الدخول للإدارة</h2>
-      <input type="text" id="username" placeholder="اسم المستخدم" class="p-2 rounded mb-2 w-full">
-      <input type="password" id="password" placeholder="كلمة المرور" class="p-2 rounded mb-2 w-full">
-      <button onclick="login()" class="bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded">دخول</button>
-      <p id="login-error" class="text-red-400 text-sm mt-2 hidden">بيانات الدخول غير صحيحة</p>
+  <main class="max-w-6xl mx-auto px-4">
+    <section id="login" class="bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-xl text-center mb-10 max-w-md mx-auto">
+      <h2 class="text-2xl font-bold mb-4">تسجيل الدخول للإدارة</h2>
+      <input type="text" id="username" placeholder="اسم المستخدم" class="p-3 rounded mb-3 w-full">
+      <input type="password" id="password" placeholder="كلمة المرور" class="p-3 rounded mb-3 w-full">
+      <button onclick="login()" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 text-white py-2 px-6 rounded-full">دخول</button>
+      <p id="login-error" class="text-red-300 text-sm mt-3 hidden">بيانات الدخول غير صحيحة</p>
     </section>
 
-    <section class="grid md:grid-cols-3 gap-6" id="tools-section">
-      <!-- الأدوات ستُضاف ديناميكيًا هنا -->
+    <section class="grid sm:grid-cols-2 md:grid-cols-3 gap-6" id="tools-section">
+      <!-- الأدوات ستُضاف هنا -->
     </section>
 
-    <section id="admin-panel" class="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl mt-6 hidden">
-      <h2 class="text-xl font-bold mb-4">إضافة أداة جديدة</h2>
-      <input type="text" id="tool-name" placeholder="اسم الأداة" class="p-2 rounded mb-2 w-full">
-      <input type="text" id="tool-desc" placeholder="وصف الأداة" class="p-2 rounded mb-2 w-full">
-      <input type="text" id="tool-link" placeholder="رابط التحميل" class="p-2 rounded mb-2 w-full">
-      <button onclick="addTool()" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">إضافة</button>
+    <section id="admin-panel" class="bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-xl mt-10 max-w-xl mx-auto hidden">
+      <h2 class="text-2xl font-bold mb-5">إضافة أداة جديدة</h2>
+      <input type="text" id="tool-name" placeholder="اسم الأداة" class="p-3 rounded mb-3 w-full">
+      <input type="text" id="tool-desc" placeholder="وصف الأداة" class="p-3 rounded mb-3 w-full">
+      <input type="text" id="tool-link" placeholder="رابط التحميل" class="p-3 rounded mb-3 w-full">
+      <button onclick="addTool()" class="bg-gradient-to-r from-green-500 to-teal-500 hover:from-teal-500 hover:to-green-500 text-white py-2 px-6 rounded-full">إضافة الأداة</button>
     </section>
   </main>
 
-  <footer class="text-center text-sm mt-10 mb-4 opacity-70">
+  <footer class="text-center text-sm mt-12 mb-6 opacity-60">
     &copy; 2025 VIP Dev Tools — جميع الحقوق محفوظة
   </footer>
 
   <script>
-    let tools = JSON.parse(localStorage.getItem("tools")) || [
+    let tools = JSON.parse(localStorage.getItem("vipTools")) || [
       { name: "VIP Cleaner", desc: "Advanced cleaning tool with system repair", link: "https://example.com/download-vip-cleaner" },
       { name: "IP Switcher", desc: "Switch your IP automatically with one click", link: "https://example.com/ip-switcher" },
       { name: "RAM Booster", desc: "Boost your device performance instantly", link: "https://example.com/ram-booster" }
     ];
+
+    function saveTools() {
+      localStorage.setItem("vipTools", JSON.stringify(tools));
+    }
 
     function renderTools() {
       const section = document.getElementById("tools-section");
       section.innerHTML = "";
       tools.forEach(tool => {
         const card = document.createElement("div");
-        card.className = "bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl shadow-md hover:bg-opacity-20 transition duration-300";
+        card.className = "card bg-white bg-opacity-10 backdrop-blur-md p-5 rounded-xl shadow-md";
         card.innerHTML = `
           <h2 class="text-xl font-semibold mb-2">${tool.name}</h2>
           <p class="text-sm mb-4">${tool.desc}</p>
-          <a href="${tool.link}" target="_blank" class="inline-block bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded">تحميل</a>
+          <a href="${tool.link}" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded-full">تحميل</a>
         `;
         section.appendChild(card);
       });
@@ -102,7 +115,7 @@
 
       if (name && desc && link) {
         tools.push({ name, desc, link });
-        localStorage.setItem("tools", JSON.stringify(tools));
+        saveTools();
         renderTools();
         document.getElementById("tool-name").value = "";
         document.getElementById("tool-desc").value = "";
