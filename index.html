@@ -1,34 +1,59 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>NEO VOLT</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEO VOLT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: white;
+      min-height: 100vh;
+    }
+
+    .animate-gradient {
+      background: linear-gradient(270deg, #00ffff, #ff00ff, #ffff00);
+      background-size: 600% 600%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
 </head>
-<body>
-    <header>
-        <h1 class="gradient-text">NEO VOLT</h1>
-        <a href="https://t.me/Vi1PE" target="_blank" class="contact">@Vi1PE</a>
-    </header>
 
-    <main>
-        <section class="cards">
-            <div class="card">
-                <h2>VIP Cleaner</h2>
-                <p>أداة تنظيف قوية وشاملة لتحسين أداء الجهاز وتغيير الـ IP تلقائيًا.</p>
-                <a href="#" class="download">تحميل</a>
-            </div>
-            <div class="card">
-                <h2>أداة مستقبلية</h2>
-                <p>مكان مخصص لأداة قادمة من تطويرك.</p>
-                <a href="#" class="download">قريبًا</a>
-            </div>
-        </section>
-    </main>
+<body class="flex flex-col items-center justify-center text-center px-4 py-12">
+  <h1 class="text-5xl font-bold animate-gradient mb-4">NEO VOLT</h1>
+  <p class="text-lg text-gray-300 mb-8">أفضل أدوات التنظيف والتحكم في جهازك بجودة VIP</p>
 
-    <footer>
-        <p>جميع الحقوق محفوظة © NEO VOLT</p>
-    </footer>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
+    <!-- Tool Card Example -->
+    <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-lg">
+      <h2 class="text-xl font-semibold text-white mb-2">أداة VIP Cleaner</h2>
+      <p class="text-sm text-gray-300 mb-4">تنظيف شامل للنظام والمتصفحات وتغيير الـ IP تلقائيًا</p>
+      <a href="#" class="inline-block px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded text-white">تحميل</a>
+    </div>
+    <!-- Add more cards as needed -->
+  </div>
+
+  <footer class="mt-16 text-sm text-gray-400">
+    &copy; 2025 <span class="animate-gradient font-semibold">NEO VOLT</span> - جميع الحقوق محفوظة
+  </footer>
 </body>
+
 </html>
