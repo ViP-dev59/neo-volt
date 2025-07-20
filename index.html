@@ -119,10 +119,30 @@
   </footer>
 
   <script>
-    // اجعل الصفحة تبدأ على قسم تسجيل الدخول مباشرة
-    window.onload = () => {
-      location.href = '#login';
-    };
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginSection = document.getElementById("login");
+      const registerSection = document.getElementById("register");
+
+      // إظهار تسجيل الدخول افتراضيًا
+      loginSection.classList.remove("hidden");
+      registerSection.classList.add("hidden");
+
+      document.querySelectorAll('a[href="#register"]').forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          loginSection.classList.add("hidden");
+          registerSection.classList.remove("hidden");
+        });
+      });
+
+      document.querySelectorAll('a[href="#login"]').forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          registerSection.classList.add("hidden");
+          loginSection.classList.remove("hidden");
+        });
+      });
+    });
   </script>
 </body>
 </html>
