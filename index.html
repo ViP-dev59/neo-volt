@@ -42,6 +42,7 @@
     }
     a {
       color: #60a5fa;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -51,7 +52,7 @@
   <nav class="flex justify-between items-center px-6 py-4 bg-black bg-opacity-40 backdrop-blur-sm border-b border-gray-700">
     <h1 class="text-2xl font-bold color-shift">VIP Dev Tools</h1>
     <div class="space-x-3 space-x-reverse">
-      <a href="#login" class="bg-white text-black px-4 py-2 rounded-full font-bold hover:bg-gray-200">تسجيل الدخول</a>
+      <a id="nav-login" class="bg-white text-black px-4 py-2 rounded-full font-bold hover:bg-gray-200">تسجيل الدخول</a>
     </div>
   </nav>
 
@@ -61,8 +62,9 @@
     <p class="text-lg mt-3 opacity-80">سجّل دخولك للوصول إلى الأدوات</p>
   </header>
 
-  <!-- ✅ نموذج تسجيل الدخول -->
+  <!-- ✅ النماذج -->
   <main class="max-w-md mx-auto px-4">
+    <!-- ✅ نموذج تسجيل الدخول -->
     <section id="login" class="blur-card p-6 rounded-xl text-center mb-10">
       <h2 class="text-2xl font-bold mb-4">تسجيل الدخول</h2>
 
@@ -78,8 +80,8 @@
       <button class="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 text-white py-2 rounded-full text-lg font-bold">Sign In</button>
 
       <div class="flex justify-between items-center mt-4 text-sm">
-        <a href="#register" class="hover:underline">إنشاء حساب</a>
-        <a href="#" class="hover:underline">هل نسيت كلمة المرور؟</a>
+        <a id="to-register" class="hover:underline">إنشاء حساب</a>
+        <a id="forgot-password" class="hover:underline">هل نسيت كلمة المرور؟</a>
       </div>
     </section>
 
@@ -108,8 +110,8 @@
       <button class="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 text-white py-2 rounded-full text-lg font-bold">Sign Up</button>
 
       <div class="flex justify-between items-center mt-4 text-sm">
-        <a href="#login" class="hover:underline">هل لديك حساب؟ تسجيل الدخول</a>
-        <a href="#" class="hover:underline">هل نسيت كلمة المرور؟</a>
+        <a id="to-login" class="hover:underline">هل لديك حساب؟ تسجيل الدخول</a>
+        <a id="forgot-password2" class="hover:underline">هل نسيت كلمة المرور؟</a>
       </div>
     </section>
   </main>
@@ -123,25 +125,19 @@
       const loginSection = document.getElementById("login");
       const registerSection = document.getElementById("register");
 
-      // إظهار تسجيل الدخول افتراضيًا
-      loginSection.classList.remove("hidden");
-      registerSection.classList.add("hidden");
+      function showLogin() {
+        loginSection.classList.remove("hidden");
+        registerSection.classList.add("hidden");
+      }
 
-      document.querySelectorAll('a[href="#register"]').forEach(link => {
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          loginSection.classList.add("hidden");
-          registerSection.classList.remove("hidden");
-        });
-      });
+      function showRegister() {
+        registerSection.classList.remove("hidden");
+        loginSection.classList.add("hidden");
+      }
 
-      document.querySelectorAll('a[href="#login"]').forEach(link => {
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          registerSection.classList.add("hidden");
-          loginSection.classList.remove("hidden");
-        });
-      });
+      document.getElementById("nav-login").addEventListener("click", showLogin);
+      document.getElementById("to-register").addEventListener("click", showRegister);
+      document.getElementById("to-login").addEventListener("click", showLogin);
     });
   </script>
 </body>
