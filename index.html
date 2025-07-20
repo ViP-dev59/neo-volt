@@ -1,66 +1,62 @@
-// Firebase imports
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+<!-- هذا هو ملف index.html الأصلي الخاص بمشروع VIP Dev Tools -->
+<!-- سنقوم بإكمال المشروع مباشرة من المكان الذي توقفت فيه، مع ربط Firebase وتفعيل الأزرار -->
 
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyDpNEMzRnnSv18gY0uFVuBw324bpf4qYhA",
-  authDomain: "vip-dev-tools.firebaseapp.com",
-  projectId: "vip-dev-tools",
-  storageBucket: "vip-dev-tools.firebasestorage.app",
-  messagingSenderId: "514319559404",
-  appId: "1:514319559404:web:def10d74bba1c432fc53c9",
-  measurementId: "G-W2TFZDDYYB"
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP Dev Tools - Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Sign in</h1>
+    <form id="login-form">
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p>
+      <a href="register.html">Sign up</a> | 
+      <a href="#" id="forgot-password">Forgotten password?</a>
+    </p>
+  </div>
 
-// Init Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+  <!-- Firebase Login Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-// ----------------------------
-// 🔐 تسجيل دخول
-document.getElementById("login-btn").addEventListener("click", () => {
-  const email = document.getElementById("login-email").value;
-  const password = document.getElementById("login-password").value;
+    const firebaseConfig = {
+      apiKey: "AIzaSyDpNEMzRnnSv18gY0uFVuBw324bpf4qYhA",
+      authDomain: "vip-dev-tools.firebaseapp.com",
+      projectId: "vip-dev-tools",
+      storageBucket: "vip-dev-tools.appspot.com",
+      messagingSenderId: "514319559404",
+      appId: "1:514319559404:web:def10d74bba1c432fc53c9",
+      measurementId: "G-W2TFZDDYYB"
+    };
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("✅ تم تسجيل الدخول بنجاح");
-      // هنا تقدر توجه المستخدم للوحة التحكم
-      window.location.href = "/dashboard"; // غير المسار حسب مشروعك
-    })
-    .catch((error) => {
-      alert("❌ خطأ في تسجيل الدخول: " + error.message);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginForm = document.getElementById("login-form");
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        alert("تم تسجيل الدخول بنجاح");
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        alert("خطأ في تسجيل الدخول: " + error.message);
+      }
     });
-});
-
-// ----------------------------
-// 🆕 إنشاء حساب جديد
-document.getElementById("signup-btn").addEventListener("click", () => {
-  const email = document.getElementById("signup-email").value;
-  const password = document.getElementById("signup-password").value;
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("✅ تم إنشاء الحساب بنجاح");
-    })
-    .catch((error) => {
-      alert("❌ خطأ أثناء إنشاء الحساب: " + error.message);
-    });
-});
-
-// ----------------------------
-// ❓ نسيت كلمة المرور
-document.getElementById("reset-password-btn").addEventListener("click", () => {
-  const email = prompt("📧 أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور:");
-
-  if (email) {
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        alert("📨 تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك.");
-      })
-      .catch((error) => {
-        alert("❌ لم يتم إرسال الرابط: " + error.message);
-      });
-  }
-});
+  </script>
+</body>
+</html>
