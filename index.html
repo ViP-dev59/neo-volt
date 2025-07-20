@@ -61,7 +61,7 @@
   </footer>
 
   <script>
-    const tools = [
+    let tools = JSON.parse(localStorage.getItem("tools")) || [
       { name: "VIP Cleaner", desc: "Advanced cleaning tool with system repair", link: "https://example.com/download-vip-cleaner" },
       { name: "IP Switcher", desc: "Switch your IP automatically with one click", link: "https://example.com/ip-switcher" },
       { name: "RAM Booster", desc: "Boost your device performance instantly", link: "https://example.com/ram-booster" }
@@ -102,6 +102,7 @@
 
       if (name && desc && link) {
         tools.push({ name, desc, link });
+        localStorage.setItem("tools", JSON.stringify(tools));
         renderTools();
         document.getElementById("tool-name").value = "";
         document.getElementById("tool-desc").value = "";
