@@ -23,6 +23,9 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    input, button {
+      color: black;
+    }
   </style>
 </head>
 <body>
@@ -32,8 +35,24 @@
   </header>
 
   <main class="max-w-4xl mx-auto px-4">
+    <section id="login" class="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl text-center mb-6">
+      <h2 class="text-xl font-bold mb-2">تسجيل الدخول للإدارة</h2>
+      <input type="text" id="username" placeholder="اسم المستخدم" class="p-2 rounded mb-2 w-full">
+      <input type="password" id="password" placeholder="كلمة المرور" class="p-2 rounded mb-2 w-full">
+      <button onclick="login()" class="bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded">دخول</button>
+      <p id="login-error" class="text-red-400 text-sm mt-2 hidden">بيانات الدخول غير صحيحة</p>
+    </section>
+
     <section class="grid md:grid-cols-3 gap-6" id="tools-section">
       <!-- الأدوات ستُضاف ديناميكيًا هنا -->
+    </section>
+
+    <section id="admin-panel" class="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl mt-6 hidden">
+      <h2 class="text-xl font-bold mb-4">إضافة أداة جديدة</h2>
+      <input type="text" id="tool-name" placeholder="اسم الأداة" class="p-2 rounded mb-2 w-full">
+      <input type="text" id="tool-desc" placeholder="وصف الأداة" class="p-2 rounded mb-2 w-full">
+      <input type="text" id="tool-link" placeholder="رابط التحميل" class="p-2 rounded mb-2 w-full">
+      <button onclick="addTool()" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">إضافة</button>
     </section>
   </main>
 
@@ -42,37 +61,55 @@
   </footer>
 
   <script>
-    // بيانات الأدوات
     const tools = [
-      {
-        name: "VIP Cleaner",
-        desc: "Advanced cleaning tool with system repair",
-        link: "https://example.com/download-vip-cleaner"
-      },
-      {
-        name: "IP Switcher",
-        desc: "Switch your IP automatically with one click",
-        link: "https://example.com/ip-switcher"
-      },
-      {
-        name: "RAM Booster",
-        desc: "Boost your device performance instantly",
-        link: "https://example.com/ram-booster"
-      }
+      { name: "VIP Cleaner", desc: "Advanced cleaning tool with system repair", link: "https://example.com/download-vip-cleaner" },
+      { name: "IP Switcher", desc: "Switch your IP automatically with one click", link: "https://example.com/ip-switcher" },
+      { name: "RAM Booster", desc: "Boost your device performance instantly", link: "https://example.com/ram-booster" }
     ];
 
-    // توليد الكروت
-    const section = document.getElementById("tools-section");
-    tools.forEach(tool => {
-      const card = document.createElement("div");
-      card.className = "bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl shadow-md hover:bg-opacity-20 transition duration-300";
-      card.innerHTML = `
-        <h2 class="text-xl font-semibold mb-2">${tool.name}</h2>
-        <p class="text-sm mb-4">${tool.desc}</p>
-        <a href="${tool.link}" target="_blank" class="inline-block bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded">تحميل</a>
-      `;
-      section.appendChild(card);
-    });
+    function renderTools() {
+      const section = document.getElementById("tools-section");
+      section.innerHTML = "";
+      tools.forEach(tool => {
+        const card = document.createElement("div");
+        card.className = "bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl shadow-md hover:bg-opacity-20 transition duration-300";
+        card.innerHTML = `
+          <h2 class="text-xl font-semibold mb-2">${tool.name}</h2>
+          <p class="text-sm mb-4">${tool.desc}</p>
+          <a href="${tool.link}" target="_blank" class="inline-block bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded">تحميل</a>
+        `;
+        section.appendChild(card);
+      });
+    }
+
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const error = document.getElementById("login-error");
+
+      if (user === "admin" && pass === "01144a") {
+        document.getElementById("admin-panel").classList.remove("hidden");
+        document.getElementById("login").classList.add("hidden");
+      } else {
+        error.classList.remove("hidden");
+      }
+    }
+
+    function addTool() {
+      const name = document.getElementById("tool-name").value;
+      const desc = document.getElementById("tool-desc").value;
+      const link = document.getElementById("tool-link").value;
+
+      if (name && desc && link) {
+        tools.push({ name, desc, link });
+        renderTools();
+        document.getElementById("tool-name").value = "";
+        document.getElementById("tool-desc").value = "";
+        document.getElementById("tool-link").value = "";
+      }
+    }
+
+    renderTools();
   </script>
 </body>
 </html>
