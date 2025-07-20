@@ -40,19 +40,19 @@
 <body>
   <header class="text-center py-10">
     <h1 class="text-5xl font-bold color-shift">VIP Dev Tools</h1>
-    <p class="text-lg mt-3 opacity-80">لوحة أدوات تقنية أنيقة — احترافية وعصرية</p>
+    <p class="text-lg mt-3 opacity-80">لوحة أدوات احترافية — دخول VIP فقط</p>
   </header>
 
   <main class="max-w-6xl mx-auto px-4">
     <section id="login" class="bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-xl text-center mb-10 max-w-md mx-auto">
-      <h2 class="text-2xl font-bold mb-4">تسجيل الدخول للإدارة</h2>
+      <h2 class="text-2xl font-bold mb-4">تسجيل الدخول</h2>
       <input type="text" id="username" placeholder="اسم المستخدم" class="p-3 rounded mb-3 w-full">
       <input type="password" id="password" placeholder="كلمة المرور" class="p-3 rounded mb-3 w-full">
       <button onclick="login()" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 text-white py-2 px-6 rounded-full">دخول</button>
       <p id="login-error" class="text-red-300 text-sm mt-3 hidden">بيانات الدخول غير صحيحة</p>
     </section>
 
-    <section class="grid sm:grid-cols-2 md:grid-cols-3 gap-6" id="tools-section">
+    <section id="tools-section" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 hidden">
       <!-- الأدوات ستُضاف هنا -->
     </section>
 
@@ -63,6 +63,10 @@
       <input type="text" id="tool-link" placeholder="رابط التحميل" class="p-3 rounded mb-3 w-full">
       <button onclick="addTool()" class="bg-gradient-to-r from-green-500 to-teal-500 hover:from-teal-500 hover:to-green-500 text-white py-2 px-6 rounded-full">إضافة الأداة</button>
     </section>
+
+    <div id="logout-section" class="text-center hidden mt-10">
+      <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-full">تسجيل الخروج</button>
+    </div>
   </main>
 
   <footer class="text-center text-sm mt-12 mb-6 opacity-60">
@@ -102,28 +106,21 @@
 
       if (user === "admin" && pass === "01144a") {
         document.getElementById("admin-panel").classList.remove("hidden");
+        document.getElementById("tools-section").classList.remove("hidden");
+        document.getElementById("logout-section").classList.remove("hidden");
         document.getElementById("login").classList.add("hidden");
+        renderTools();
       } else {
         error.classList.remove("hidden");
       }
     }
 
-    function addTool() {
-      const name = document.getElementById("tool-name").value;
-      const desc = document.getElementById("tool-desc").value;
-      const link = document.getElementById("tool-link").value;
-
-      if (name && desc && link) {
-        tools.push({ name, desc, link });
-        saveTools();
-        renderTools();
-        document.getElementById("tool-name").value = "";
-        document.getElementById("tool-desc").value = "";
-        document.getElementById("tool-link").value = "";
-      }
+    function logout() {
+      document.getElementById("admin-panel").classList.add("hidden");
+      document.getElementById("tools-section").classList.add("hidden");
+      document.getElementById("logout-section").classList.add("hidden");
+      document.getElementById("login").classList.remove("hidden");
     }
-
-    renderTools();
   </script>
 </body>
 </html>
