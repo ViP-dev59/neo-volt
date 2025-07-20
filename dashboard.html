@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VIP Dashboard</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #00ffcc;
+    }
+    #email {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #ff4444;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #ff2222;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 مرحبًا بك في VIP Tools</h1>
+  <div id="email">جارٍ تحميل معلوماتك...</div>
+  <button id="logout">تسجيل الخروج</button>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDpNEMzRnnSv18gY0uFVuBw324bpf4qYhA",
+      authDomain: "vip-dev-tools.firebaseapp.com",
+      projectId: "vip-dev-tools",
+      storageBucket: "vip-dev-tools.appspot.com",
+      messagingSenderId: "514319559404",
+      appId: "1:514319559404:web:def10d74bba1c432fc53c9",
+      measurementId: "G-W2TFZDDYYB"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const emailDiv = document.getElementById("email");
+    const logoutBtn = document.getElementById("logout");
+
+    // Check user state
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        emailDiv.textContent = "✅ مسجّل الدخول بـ: " + user.email;
+      } else {
+        // لو المستخدم مش مسجل دخول يرجع لصفحة تسجيل الدخول
+        window.location.href = "index.html";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth).then(() => {
+        window.location.href = "index.html";
+      });
+    });
+  </script>
+</body>
+</html>
